@@ -56,6 +56,9 @@ dependencies:
   # 工具库
   flustars: ^0.3.3
 
+  # 数据库
+  floor: ^0.17.0
+
 
 dev_dependencies:
   flutter_test:
