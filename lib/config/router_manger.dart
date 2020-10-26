@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/ui/page/setting/basis_page.dart';
+import 'package:flutter_app/ui/page/setting/group_page.dart';
+import 'package:flutter_app/ui/page/setting/price_page.dart';
 import 'package:flutter_app/ui/page/tab_navigator.dart';
 import 'package:flutter_app/ui/widget/page_route_anim.dart';
 
@@ -9,6 +12,9 @@ class RouteName {
   static const String splash = 'splash';
   static const String tab = '/';
   static const String login = 'login';
+  static const String basis = 'basis';
+  static const String group = 'group';
+  static const String price = 'price';
 }
 
 class MyRouter {
@@ -16,6 +22,12 @@ class MyRouter {
     switch (settings.name) {
       case RouteName.tab:
         return NoAnimRouteBuilder(TabNavigator());
+      case RouteName.basis:
+        return NoAnimRouteBuilder(BasisPage());
+      case RouteName.group:
+        return NoAnimRouteBuilder(GroupPage());
+      case RouteName.price:
+        return NoAnimRouteBuilder(PricePage());
       default:
         return CupertinoPageRoute(
             builder: (_) => Scaffold(

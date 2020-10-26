@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/config/router_manger.dart';
 import 'package:flutter_app/res/index.dart';
 import 'package:flutter_app/ui/widget/iconfont_icons.dart';
 import 'package:flutter_app/ui/widget/my_tab_indicator.dart';
@@ -36,6 +37,8 @@ class _TabNavigatorState extends State<TabNavigator>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
         body: WillPopScope(
           onWillPop: () async {
             if (_lastPressed == null ||
@@ -124,7 +127,7 @@ class HomeDrawer extends StatelessWidget {
                   isThreeLine: true,
                   onTap: () => {
 
-
+                    Navigator.of(context).pushNamed(RouteName.basis)
 
                   },
                 ),
