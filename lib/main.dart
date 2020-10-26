@@ -4,6 +4,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'api/app_database.dart';
 import 'config/provider_manager.dart';
 import 'config/router_manger.dart';
 import 'config/storage_manager.dart';
@@ -14,6 +15,7 @@ void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
+  await DataBase.initDatabase();
   Log.init();
   runApp(MyApp());
   if (Device.isAndroid) {
