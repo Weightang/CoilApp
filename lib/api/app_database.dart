@@ -14,13 +14,14 @@ part 'app_database.g.dart';
 
 class DataBase{
 
-   static var basisDatabase;
+   static BasisDatabase basisDatabase;
 
 
   static  initDatabase() async{
-    basisDatabase=await $FloorBasisDatabase
+     basisDatabase=await $FloorBasisDatabase
         .databaseBuilder('basis_database.db')
         .build();
+
 
   }
 }
