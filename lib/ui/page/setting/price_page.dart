@@ -56,7 +56,7 @@ class PriceListView extends StatelessWidget {
 
 class PriceTextField extends StatelessWidget {
   final PriceModel model;
-  PriceTextField({@required this.model})
+  PriceTextField({@required this.model});
 
   @override
   Widget build(BuildContext context) {
