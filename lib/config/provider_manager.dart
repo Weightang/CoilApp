@@ -1,5 +1,6 @@
 
 
+import 'package:flutter_app/models/viewModel/pirce_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -12,7 +13,7 @@ List<SingleChildWidget> providers = [
 /// 独立的model
 List<SingleChildWidget> independentServices = [
 
-  // ChangeNotifierProvider<GlobalFavouriteStateModel>(
-  //   create: (context) => GlobalFavouriteStateModel(),
-  // )
+  ChangeNotifierProvider<PriceModel>(
+    create: (context) => PriceModel(),
+  )
 ];

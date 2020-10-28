@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/router_manger.dart';
 import 'package:flutter_app/res/index.dart';
+import 'package:flutter_app/ui/page/home/sell_page.dart';
 import 'package:flutter_app/ui/widget/iconfont_icons.dart';
 import 'package:flutter_app/ui/widget/my_tab_indicator.dart';
 
 import 'home/bill_page.dart';
 
-List<Widget> pages = <Widget>[BillPage()];
+List<Widget> pages = <Widget>[BillPage(),SellPage()];
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -62,8 +63,10 @@ class _TabNavigatorState extends State<TabNavigator>
         ),
         drawer: HomeDrawer(),
         floatingActionButton: Container(
-          width: 300,
+          width: 100,
+          height: 100,
           child: TabBar(
+
             controller: mTabController,
             indicator: FloatingLineTabIndicator(),
             tabs: [

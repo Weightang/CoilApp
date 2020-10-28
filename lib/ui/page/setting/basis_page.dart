@@ -26,7 +26,7 @@ class _BasisPageState extends State<BasisPage> {
       ),
       body: ListView.builder(
         itemCount: list.length,
-        itemExtent: 30,
+        itemExtent: 60,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: Text(list[index]),
