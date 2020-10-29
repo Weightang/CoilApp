@@ -4,6 +4,7 @@ import 'package:flutter_app/models/viewModel/pirce_model.dart';
 import 'package:flutter_app/provider/provider_widget.dart';
 import 'package:flutter_app/provider/view_state_widget.dart';
 import 'package:flutter_app/res/colors.dart';
+import 'package:flutter_app/utils/log_utils.dart';
 import 'package:oktoast/oktoast.dart';
 
 class PricePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _PricePageState extends State<PricePage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 200,
+                  height: 50,
                   child: Row(
                     children: [
                       Expanded(
@@ -49,9 +50,9 @@ class _PricePageState extends State<PricePage> {
                       )
                     ],
                   ),
-                  decoration: BoxDecoration(color: MyColors.common_grey_8e),
+                  decoration: BoxDecoration(color: MyColors.common_line_grey),
                 ),
-                PriceListView(model: model),
+                Expanded(child: PriceListView(model: model)),
                 PriceTextField(model: model),
               ],
             ),
@@ -71,6 +72,9 @@ class PriceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProviderWidget<PriceModel>(
         model: model,
+        onModelReady: (model) {
+          model.findAllPrice();
+        },
         builder: (context, model, child) {
           if (model.isEmpty) {
             return Container();
@@ -81,13 +85,12 @@ class PriceListView extends StatelessWidget {
                   showToast("数据查询错误");
                 });
           }
-          List<PriceEntity> priceList;
-          model.findAllPrice().then((value) => priceList = value);
-          return ListView.builder(
-            itemCount: priceList.length,
+          return ListView.separated(
+            itemCount: model.list.length,
             itemBuilder: (_, index) {
-              return PriceSettingCell(bean: priceList[index], model: model);
+              return PriceSettingCell(bean: model.list[index], model: model);
             },
+            separatorBuilder: (BuildContext context, int index)=>Divider(height: 2.0, color: MyColors.common_line_grey),
           );
         });
   }
@@ -102,8 +105,8 @@ class PriceSettingCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key('${bean.hashCode}'),
-      background: Container(color: Colors.white),
+      key: UniqueKey(),
+      background: Container(color: Colors.red),
       direction: DismissDirection.endToStart,
       child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -111,6 +114,7 @@ class PriceSettingCell extends StatelessWidget {
             horizontal: 16,
           ),
           child: Container(
+            height: 40,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -118,17 +122,27 @@ class PriceSettingCell extends StatelessWidget {
                     "${bean.name}",
                     style: TextStyle(color: MyColors.gray_33),
                   ),
-                  flex: 1,
                 ),
                 Expanded(
                   child: Text("${bean.price}",
                       style: TextStyle(color: MyColors.gray_33)),
-                  flex: 1,
                 )
               ],
             ),
           )),
-      onDismissed: (_) async {},
+      onDismissed: (_) async {
+        if (bean != null) {
+          model.list.remove(bean);
+          model.deletePrice(bean).then((value) => () {
+                if (value) {
+                  Scaffold.of(context).hideCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(
+                    const SnackBar(content: Text('已删除')),
+                  );
+                }
+              });
+        }
+      },
     );
   }
 }
@@ -161,7 +175,7 @@ class PriceTextField extends StatelessWidget {
               await _persistMessage();
             },
           ),
-
+          flex: 2,
         ),
         Expanded(
           child: TextField(
@@ -177,18 +191,21 @@ class PriceTextField extends StatelessWidget {
               await _persistMessage();
             },
           ),
+          flex: 2,
         ),
         Expanded(
-            child: Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: OutlineButton(
-            textColor: Colors.blueGrey,
-            child: const Text('保存'),
-            onPressed: () async {
-              await _persistMessage();
-            },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: OutlineButton(
+              textColor: Colors.blueGrey,
+              child: const Text('保存'),
+              onPressed: () async {
+                await _persistMessage();
+              },
+            ),
           ),
-        ))
+          flex: 1,
+        )
       ],
     ));
   }
@@ -198,14 +215,13 @@ class PriceTextField extends StatelessWidget {
     final price = _textPriceEditingController.text;
     if (name.trim().isEmpty) {
       _textNameEditingController.clear();
-    }else if(price.trim().isEmpty){
+    } else if (price.trim().isEmpty) {
       _textPriceEditingController.clear();
     } else {
-      final pirce = PriceEntity(name: name,price: price);
+      final pirce = PriceEntity(name: name, price: price);
       await model.addPrice(pirce);
       _textNameEditingController.clear();
       _textPriceEditingController.clear();
     }
   }
-
 }

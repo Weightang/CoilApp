@@ -12,4 +12,8 @@ abstract class BasisDao{
   @insert
   Future<void> insertPrice(PriceEntity price);
 
+
+  @delete
+  Future<void> deletePrice(PriceEntity price);
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/common/l10n.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -38,6 +39,13 @@ class MyApp extends StatelessWidget {
               footerBuilder: () => ClassicFooter(),
               maxUnderScrollExtent:0,
               child: MaterialApp(
+                localizationsDelegates: const [
+                  S.delegate
+                ],
+                theme: ThemeData(
+                    highlightColor: Color.fromRGBO(0, 0, 0, 0),
+                    splashColor: Color.fromRGBO(0, 0, 0, 0)
+                ),
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: MyRouter.generateRoute,
                 initialRoute: RouteName.tab,

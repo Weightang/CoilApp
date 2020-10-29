@@ -7,7 +7,7 @@ import 'package:flutter_app/ui/widget/my_tab_indicator.dart';
 
 import 'home/bill_page.dart';
 
-List<Widget> pages = <Widget>[BillPage(),SellPage()];
+List<Widget> pages = <Widget>[BillPage(), SellPage()];
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -38,50 +38,57 @@ class _TabNavigatorState extends State<TabNavigator>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
-        body: WillPopScope(
-          onWillPop: () async {
-            if (_lastPressed == null ||
-                DateTime.now().difference(_lastPressed) >
-                    Duration(seconds: 1)) {
-              //两次点击间隔超过1秒则重新计时
-              _lastPressed = DateTime.now();
-              return false;
-            }
-            return true;
+      body: WillPopScope(
+        onWillPop: () async {
+          if (_lastPressed == null ||
+              DateTime.now().difference(_lastPressed) > Duration(seconds: 1)) {
+            //两次点击间隔超过1秒则重新计时
+            _lastPressed = DateTime.now();
+            return false;
+          }
+          return true;
+        },
+        child: PageView.builder(
+          itemBuilder: (ctx, index) => pages[index],
+          itemCount: pages.length,
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          onPageChanged: (index) {
+            onPageChange(index);
           },
-          child: PageView.builder(
-            itemBuilder: (ctx, index) => pages[index],
-            itemCount: pages.length,
-            controller: _pageController,
-            physics: NeverScrollableScrollPhysics(),
-            onPageChanged: (index) {
-              onPageChange(index);
-            },
-          ),
         ),
-        drawer: HomeDrawer(),
-        floatingActionButton: Container(
-          width: 100,
-          height: 100,
-          child: TabBar(
+      ),
+      drawer: HomeDrawer(),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                  color: MyColors.grey_e0, offset: Offset(2, 2), blurRadius: 4)
+            ]),
+        width: 120,
+        height: 30,
+        child: TabBar(
+          controller: mTabController,
+          labelColor: MyColors.white,
+          labelStyle: TextStyle(color: MyColors.white, fontSize: 14.0),
+          unselectedLabelColor: MyColors.gray_33,
+          unselectedLabelStyle:
+              TextStyle(color: MyColors.gray_33, fontSize: 14.0),
+          indicator: FloatingLineTabIndicator(),
 
-            controller: mTabController,
-            indicator: FloatingLineTabIndicator(),
-            tabs: [
-              Tab(
-                text: "今日账单",
-              ),
-              Tab(
-                text: "出售油饼",
-              )
-            ],
-          ),
+          tabs: [
+            Tab(
+              text: "账单",
+            ),
+            Tab(
+              text: "出售",
+            )
+          ],
         ),
-      floatingActionButtonLocation:FloatingActionButtonLocation.centerFloat ,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-
   }
 
   onPageChange(int index, {PageController p, TabController t}) async {
@@ -128,11 +135,8 @@ class HomeDrawer extends StatelessWidget {
                   ),
                   subtitle: Text("基础数据"),
                   isThreeLine: true,
-                  onTap: () => {
-
-                    Navigator.of(context).pushNamed(RouteName.basis)
-
-                  },
+                  onTap: () =>
+                      {Navigator.of(context).pushNamed(RouteName.basis)},
                 ),
               ],
             ),
