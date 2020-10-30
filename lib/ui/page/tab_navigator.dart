@@ -38,6 +38,34 @@ class _TabNavigatorState extends State<TabNavigator>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        leading: null,
+        title: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),),
+          width: 120,
+          height: 25,
+          child: TabBar(
+            controller: mTabController,
+            labelColor: MyColors.white,
+            labelStyle: TextStyle(color: MyColors.white, fontSize: 14.0),
+            unselectedLabelColor: MyColors.grey_ca,
+            unselectedLabelStyle:
+            TextStyle(color: MyColors.grey_ec, fontSize: 14.0),
+            indicator: FloatingLineTabIndicator(),
+
+            tabs: [
+              Tab(
+                text: "账单",
+              ),
+              Tab(
+                text: "出售",
+              )
+            ],
+          ),
+        ),
+      ),
       body: WillPopScope(
         onWillPop: () async {
           if (_lastPressed == null ||
@@ -59,35 +87,6 @@ class _TabNavigatorState extends State<TabNavigator>
         ),
       ),
       drawer: HomeDrawer(),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                  color: MyColors.grey_e0, offset: Offset(2, 2), blurRadius: 4)
-            ]),
-        width: 120,
-        height: 30,
-        child: TabBar(
-          controller: mTabController,
-          labelColor: MyColors.white,
-          labelStyle: TextStyle(color: MyColors.white, fontSize: 14.0),
-          unselectedLabelColor: MyColors.gray_33,
-          unselectedLabelStyle:
-              TextStyle(color: MyColors.gray_33, fontSize: 14.0),
-          indicator: FloatingLineTabIndicator(),
-
-          tabs: [
-            Tab(
-              text: "账单",
-            ),
-            Tab(
-              text: "出售",
-            )
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 

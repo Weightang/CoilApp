@@ -222,6 +222,8 @@ class PriceTextField extends StatelessWidget {
       await model.addPrice(pirce);
       _textNameEditingController.clear();
       _textPriceEditingController.clear();
+      model.findAllPrice();
+
     }
   }
 }

@@ -102,7 +102,7 @@ class _FloatingLinePainter extends BoxPainter {
     // canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
 
     final Rect rect = offset & configuration.size;
-    final RRect rrect = RRect.fromRectAndRadius(rect, Radius.circular(40.0));
+    final RRect rrect = RRect.fromRectAndRadius(rect, Radius.circular(20.0));
     Gradient gradient =LinearGradient(colors:[Colors.blue[100], Colors.blue[300]]);
     canvas.drawRRect(rrect,
         Paint()..style = PaintingStyle.fill
