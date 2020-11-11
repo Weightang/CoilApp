@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-class SellPage extends StatefulWidget {
+class ListPage extends StatefulWidget {
   @override
-  _SellPageState createState() => _SellPageState();
+  _ListPageState createState() => _ListPageState();
 }
 
-class _SellPageState extends State<SellPage> {
+class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
 

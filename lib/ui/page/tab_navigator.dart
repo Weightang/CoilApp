@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/router_manger.dart';
 import 'package:flutter_app/res/index.dart';
-import 'package:flutter_app/ui/page/home/sell_page.dart';
+import 'package:flutter_app/ui/page/home/list_page.dart';
 import 'package:flutter_app/ui/widget/iconfont_icons.dart';
 import 'package:flutter_app/ui/widget/my_tab_indicator.dart';
 
-import 'home/bill_page.dart';
+import 'home/notes_page.dart';
 
-List<Widget> pages = <Widget>[BillPage(), SellPage()];
+List<Widget> pages = <Widget>[NotesPage(), ListPage()];
 
 class TabNavigator extends StatefulWidget {
   @override
@@ -57,10 +57,10 @@ class _TabNavigatorState extends State<TabNavigator>
 
             tabs: [
               Tab(
-                text: "账单",
+                text: "记录",
               ),
               Tab(
-                text: "出售",
+                text: "查看",
               )
             ],
           ),
@@ -80,7 +80,7 @@ class _TabNavigatorState extends State<TabNavigator>
           itemBuilder: (ctx, index) => pages[index],
           itemCount: pages.length,
           controller: _pageController,
-          physics: NeverScrollableScrollPhysics(),
+
           onPageChanged: (index) {
             onPageChange(index);
           },

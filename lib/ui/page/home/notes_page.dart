@@ -8,12 +8,12 @@ import 'package:flutter_app/provider/provider_widget.dart';
 import 'package:flutter_app/res/colors.dart';
 import 'package:flutter_app/res/index.dart';
 
-class BillPage extends StatefulWidget {
+class NotesPage extends StatefulWidget {
   @override
-  _BillPageState createState() => _BillPageState();
+  _NotesPageState createState() => _NotesPageState();
 }
 
-class _BillPageState extends State<BillPage> {
+class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<BillModel>(
@@ -24,11 +24,11 @@ class _BillPageState extends State<BillPage> {
           body: SafeArea(
             child: Column(
               children: [
-                BillHeadListView(),
+                NotesHeadView(),
                 Expanded(
-                  child: BillListView(),
+                  child: NotesListView(),
                 ),
-                BillFootListView()
+                NotesFootView()
               ],
             ),
           ),
@@ -38,11 +38,10 @@ class _BillPageState extends State<BillPage> {
   }
 }
 
-class BillHeadListView extends StatelessWidget {
+class NotesHeadView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       margin: EdgeInsets.symmetric(vertical: 5.0,horizontal: 10),
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -57,54 +56,24 @@ class BillHeadListView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            decoration: Decorations.bottom,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text("今日收入:200"),
-                ),
-                Expanded(
-                  child: Text("今日支出:200"),
-                )
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text("原料"),
-              ),
-              Expanded(
-                child: Text("数量"),
-              ),
-              Expanded(
-                child: Text("原料工价"),
-              ),
-              Expanded(
-                child: Text("次料数量"),
-              ),
-              Expanded(
-                child: Text("回收金额"),
-              ),
-            ],
-          )
+              Row(
 
-
+              ),
+              Row()
         ],
       ),
     );
   }
 }
 
-class BillListView extends StatelessWidget {
+class NotesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
   }
 }
 
-class BillFootListView extends StatelessWidget {
+class NotesFootView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
